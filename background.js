@@ -37,7 +37,7 @@ function copyToClipboard(text) {
   // クリップボードAPIを使ってテキストを書き込む
   navigator.clipboard.writeText(text)
     .then(() => {
-      // 成功した場合（コンソールに表示されるので、テストに役立つ）
+      // 成功した場合
       console.log('Markdown link copied to clipboard successfully!');
     })
     .catch(err => {
@@ -45,3 +45,27 @@ function copyToClipboard(text) {
       console.error('Failed to copy text: ', err);
     });
 }
+
+// ショートカットキーが押されたときに実行される
+chrome.commands.onCommand.addListener((command) => {
+  // ショートカットキーに割り当てたコマンドIDと一致するか確認
+  if (command === "toggle-copy-markdown") {
+    // 現在アクティブなタブの情報を取得
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      // tabs[0]が現在開いているタブの情報
+      const tab = tabs[0];
+      const pageTitle = tab.title;
+      const pageUrl = tab.url;
+      const markdownText = `[${pageTitle}](${pageUrl})`;
+
+      // クリップボードにコピーする関数を実行
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: copyToClipboard,
+        args: [markdownText]
+      });
+      
+    });
+  }
+});
+

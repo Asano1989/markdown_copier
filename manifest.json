@@ -4,11 +4,25 @@
   "version": "1.0",
   "manifest_version": 3,
 
+  "commands": {
+    "toggle-copy-markdown": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L",
+        "chromeos": "Ctrl+Shift+L",
+        "linux": "Ctrl+Shift+L"
+      },
+      "description": "Markdown形式でページのURLとタイトルをコピー"
+    }
+  },
+
   "permissions": [
     "contextMenus",
     "activeTab",
     "clipboardWrite",
-    "scripting"
+    "scripting",
+    "commands",
+    "tabs"
   ],
 
   "background": {
