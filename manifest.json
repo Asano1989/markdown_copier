@@ -1,0 +1,16 @@
+{
+  "name": "Markdown Link Copier",
+  "description": "ページのタイトルとURLをMarkdown形式でコピーします。",
+  "version": "1.0",
+  "manifest_version": 3,
+
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "clipboardWrite"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  }
+}
